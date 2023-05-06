@@ -38,14 +38,13 @@ const statusText = computed(() => {
 })
 
 function cellClicked (value: number) {
-    if (options.value[value] !== '' || !running.value) return
-    updateCell(value)
+  if (options.value[value] !== '' || !running.value) return
+  updateCell(value)
 }
-function updateCell(value: number) {
+function updateCell (value: number) {
   options.value[value] = currentPlayer.value
   checkWinCondition()
   currentPlayer.value = currentPlayer.value === 'X' ? 'O' : 'X'
-
 }
 
 function checkWinCondition () {
