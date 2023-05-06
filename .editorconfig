@@ -1,0 +1,54 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.json]
+indent_size = 2
+
+# Configurações específicas para o ESLint
+[*.{js,ts,vue}]
+# Indicar que o arquivo segue a especificação do ESLint
+# https://eslint.org/docs/user-guide/configuring#specifying-parser-options
+# https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser
+root = true
+
+# Configuração do ambiente
+# https://eslint.org/docs/user-guide/configuring#specifying-environments
+env.browser = true
+env.es2021 = true
+env.node = true
+
+# Configuração das regras
+# https://eslint.org/docs/user-guide/configuring/rules
+# https://eslint.vuejs.org/rules/
+# https://github.com/standard/eslint-config-standard-with-typescript
+extends = 
+  plugin:vue/vue3-essential,
+  standard-with-typescript
+
+# Configuração dos plugins
+# https://eslint.org/docs/user-guide/configuring/plugins
+plugins = 
+  vue
+
+# Configuração do parser
+# https://eslint.org/docs/user-guide/configuring#specifying-parser
+# https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser
+parserOptions.ecmaVersion = latest
+parserOptions.sourceType = module
+
+# Configuração de overrides
+# https://eslint.org/docs/user-guide/configuring#configuration-based-on-glob-patterns
+overrides =
