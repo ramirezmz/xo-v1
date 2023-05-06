@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <h1>asdas</h1>
-  </div>
+    <div>
+        <Game />
+    </div>
 </template>
 <script setup lang="ts">
-</script>
+import Game from './pages/Game.vue'
 
-<style scoped>
-</style>
+</script>
