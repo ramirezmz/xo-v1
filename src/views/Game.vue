@@ -4,7 +4,7 @@
         <img src="../assets/ArrowBackIosNewFilled.svg"/>
         <span>Voltar</span>
     </RouterLink>
-    <h2 class="game-title">{{ statusText }}</h2>
+    <h2 class="game-title paragraph">{{ statusText }}</h2>
     <div class="cell-container">
         <div class="cell" v-for="cell in cells" :key="cell" @click="cellClicked(cell)" @keydown="handleKeyDown" :tabindex="cell" :class="{selected: cell === selectedCellIndex}">
             <span v-if="options[cell] !== ''" >{{ options[cell] }}</span>
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, onMounted, ref, reactive } from 'vue'
+import { computed, onMounted, ref, reactive, watch } from 'vue'
 import Timer from '../components/Timer.vue'
 
 const winCondition = [
@@ -95,6 +95,13 @@ function handleKeyDown (event: KeyboardEvent) {
   }
 }
 
+watch(statusText, () => {
+  const title = document.querySelector('.game-title') as HTMLElement
+  title?.classList.remove('paragraph')
+  void title?.offsetWidth
+  title?.classList.add('paragraph')
+})
+
 </script>
 
 <style scoped>
@@ -104,6 +111,15 @@ function handleKeyDown (event: KeyboardEvent) {
     font-weight: 400;
     margin: 0;
     padding: 32px 0 42px;
+}
+.paragraph {
+    display: block;
+    opacity: 0;
+    animation: reveal 0.5s forwards 0s;
+}
+@keyframes reveal {
+    from { transform: translateY(20px);}
+    to { opacity: 1; transform: none;}
 }
 .cell-container {
     display: grid;
