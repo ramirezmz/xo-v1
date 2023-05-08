@@ -1,9 +1,6 @@
 <template>
   <div class="game-container">
-    <RouterLink to="/" class="turn-back">
-        <img src="../assets/ArrowBackIosNewFilled.svg"/>
-        <span>Voltar</span>
-    </RouterLink>
+    <GoBack/>
     <h2 class="game-title paragraph">{{ statusText }}</h2>
     <div class="cell-container">
         <div class="cell" v-for="cell in cells" :key="cell" @click="cellClicked(cell)" @keydown="handleKeyDown" :tabindex="cell" :class="{selected: cell === selectedCellIndex}">
@@ -17,6 +14,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, reactive, watch } from 'vue'
 import Timer from '../components/Timer.vue'
+import GoBack from '../components/GoBack.vue'
 
 const winCondition = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8], // horizontal
@@ -153,21 +151,6 @@ watch(statusText, () => {
 .selected {
     box-shadow: inset 6px 6px 1px  #ffffff, inset -6px -6px 1px  #ffffff;
     transition: box-shadow 0.2s ease-in-out;
-}
-.turn-back{
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    margin: 20px -30px 24px;
-}
-.turn-back img {
-    width: 24px;
-    height: 24px;
-    margin: 0 8px 0 0;
-}
-.turn-back span {
-    margin-left: -5px;
-    color: #ffffff;
 }
 
 .button-game {
