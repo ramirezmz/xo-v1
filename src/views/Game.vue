@@ -7,7 +7,7 @@
     <h2 class="game-title paragraph">{{ statusText }}</h2>
     <div class="cell-container">
         <div class="cell" v-for="cell in cells" :key="cell" @click="cellClicked(cell)" @keydown="handleKeyDown" :tabindex="cell" :class="{selected: cell === selectedCellIndex}">
-            <span v-if="options[cell] !== ''" >{{ options[cell] }}</span>
+            <span v-if="options[cell] !== ''" :class="options[cell] === 'O' ? 'o-text' : 'x-text'">{{ options[cell] }}</span>
         </div>
     </div>
     <Timer />
@@ -33,7 +33,7 @@ const selectedCellIndex = ref(0)
 onMounted(() => {
   running.value = true
   currentPlayer.value = 'X'
-  selectedCellIndex.value = 4
+  selectedCellIndex.value = -1
 })
 
 const statusText = computed(() => {
@@ -136,6 +136,8 @@ watch(statusText, () => {
     border-bottom: 2px solid #ffffff;
     font-size: 50px;
     cursor: pointer;
+    font-weight: 700;
+    padding-top: 15px;
 }
 .cell:nth-child(3n) {
     border-right: none;
@@ -148,7 +150,6 @@ watch(statusText, () => {
   box-shadow: inset 6px 6px 1px  #ffffff, inset -6px -6px 1px  #ffffff;
   transition: box-shadow 0.2s ease-in-out;
 }
-
 .selected {
     box-shadow: inset 6px 6px 1px  #ffffff, inset -6px -6px 1px  #ffffff;
     transition: box-shadow 0.2s ease-in-out;
@@ -172,5 +173,12 @@ watch(statusText, () => {
 .button-game {
   padding: 20px;
   background-color: red;
+}
+
+.o-text {
+    color: #6C8E9D;
+}
+.x-text {
+    color: #D3D089;
 }
 </style>
