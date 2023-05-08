@@ -10,7 +10,7 @@
             <span v-if="options[cell] !== ''" :class="options[cell] === 'O' ? 'o-text' : 'x-text'">{{ options[cell] }}</span>
         </div>
     </div>
-    <Timer />
+    <Timer :start="startTime"/>
     <button class="button-game" @click="restart">Restart</button>
   </div>
 </template>
@@ -26,18 +26,18 @@ const winCondition = [
 const cells = reactive([0, 1, 2, 3, 4, 5, 6, 7, 8])
 const options = ref(['', '', '', '', '', '', '', '', ''])
 const turn = ref('')
-const running = ref(true)
 const currentPlayer = ref('X')
 const selectedCellIndex = ref(0)
+const startTime = ref(false)
 
 onMounted(() => {
-  running.value = true
+  startTime.value = true
   currentPlayer.value = 'X'
   selectedCellIndex.value = -1
 })
 
 const statusText = computed(() => {
-  if (running.value) {
+  if (startTime.value) {
     return `É a vez de ${currentPlayer.value}`
   } else {
     return `${turn.value} ganhou, parabéns!`
@@ -45,7 +45,7 @@ const statusText = computed(() => {
 })
 
 function cellClicked (value: number) {
-  if (options.value[value] !== '' || !running.value) return
+  if (options.value[value] !== '' || !startTime.value) return
   updateCell(value)
 }
 function updateCell (value: number) {
@@ -58,14 +58,14 @@ function checkWinCondition () {
   for (let i = 0; i < winCondition.length; i++) {
     const [a, b, c] = winCondition[i]
     if (options.value[a] && options.value[a] === options.value[b] && options.value[a] === options.value[c]) {
-      running.value = false
+      startTime.value = false
       turn.value = options.value[a]
     }
   }
 }
 
 function restart () {
-  running.value = true
+  startTime.value = true
   currentPlayer.value = 'X'
   options.value = ['', '', '', '', '', '', '', '', '']
 }
@@ -73,7 +73,7 @@ function restart () {
 function handleKeyDown (event: KeyboardEvent) {
   const keysAbleToUse = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter']
   if (!keysAbleToUse.includes(event.key)) return
-  if (!running.value) return
+  if (!startTime.value) return
   if (event.key === 'ArrowUp') {
     if (selectedCellIndex.value - 3 < 0) return
     selectedCellIndex.value -= 3
