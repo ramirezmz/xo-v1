@@ -13,9 +13,9 @@
             <Message v-if="alert" :message="message.title" :kind="message.kind"/>
         </div>
         <div class="accounts-options">
-            <button class="link-option">criar uma conta</button>
+            <RouterLink to="/register" class="link-option">criar uma conta</RouterLink>
             <span>ou</span>
-            <button class="link-option">acessar minha conta</button>
+            <RouterLink to="/login" class="link-option">acessar minha conta</RouterLink>
         </div>
     </div>
 </template>
@@ -56,7 +56,7 @@ function navigateToShareToFriends () {
 }
 
 </script>
-<style scoped>
+<style>
 
 .home-page-content {
     margin-top: 70px;
@@ -80,25 +80,6 @@ function navigateToShareToFriends () {
     margin-top: 50px;
 }
 
-.button-option {
-    width: 300px;
-    height: 67px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 6px;
-    border: 1px solid #6C8E9D;
-    background-color: #252525;
-    color: #ffffff;
-    font-size: 1.2rem;
-    font-weight: 100;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-}
-.button-option:hover {
-    border:1px solid #D3D089;
-    transition: background-color 0.2s ease-in-out;
-}
-
 .accounts-options {
     display: flex;
     flex-direction: column;
@@ -108,7 +89,7 @@ function navigateToShareToFriends () {
 
 .alert-content {
     width: 300px;
-    height: 200px;
+    height: 100px;
 }
 
 .link-option {
