@@ -17,7 +17,7 @@ const timerInterval = ref(null) as any
 const timeString = ref('00:00')
 
 const title = computed(() => {
-  return props.start ? 'TEMPO PASSADO' : 'ACABOU JOGO'
+  return props.start ? 'TEMPO PASSADO' : 'FIM DO JOGO⌛'
 })
 
 function formatTime (seconds: number): string {
