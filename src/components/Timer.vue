@@ -1,16 +1,12 @@
 <template>
   <div class="timer-container">
     <h1>{{ timeString }}</h1>
-    <span>TEMPO PASSADO</span>
-    <button @click="startTimer">start</button>
-    <button @click="stopTimer">stop</button>
-    <button @click="resetTimer">reset</button>
-    {{ start }}
+    <span>{{ title }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, watch } from 'vue'
+import { ref, defineProps, watch, computed } from 'vue'
 
 const props = defineProps<{
   start?: boolean
@@ -19,6 +15,10 @@ const props = defineProps<{
 const time = ref(0)
 const timerInterval = ref(null) as any
 const timeString = ref('00:00')
+
+const title = computed(() => {
+  return props.start ? 'TEMPO PASSADO' : 'ACABOU JOGO'
+})
 
 function formatTime (seconds: number): string {
   const minutes = Math.floor(seconds / 60).toString().padStart(2, '0')
@@ -42,12 +42,6 @@ function stopTimer () {
   timerInterval.value = null
 }
 
-function resetTimer () {
-  stopTimer()
-  time.value = 0
-  timeString.value = '00:00'
-}
-
 watch(() => props.start, (value) => {
   if (value) {
     startTimer()
@@ -56,3 +50,21 @@ watch(() => props.start, (value) => {
   }
 })
 </script>
+<style scoped>
+.timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+.timer-container h1 {
+    font-weight: 100;
+    font-size: 3.5rem;
+}
+.timer-container span {
+    font-size: 1.1rem;
+    font-weight: 100;
+    margin-top: -20px;
+}
+</style>
