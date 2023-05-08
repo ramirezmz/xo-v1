@@ -1,17 +1,22 @@
 <template>
-  <div>
-    <h1>XO</h1>
-    <div id="cellContainer">
-        <div class="cell" v-for="cell in cells" :key="cell" @click="cellClicked(cell)">
-            <span v-if="options[cell] !== ''">{{ options[cell] }}</span>
+  <div class="game-container">
+    <RouterLink to="/" class="turn-back">
+        <img src="../assets/ArrowBackIosNewFilled.svg"/>
+        <span>Voltar</span>
+    </RouterLink>
+    <h2 class="game-title">{{ statusText }}</h2>
+    <div class="cell-container">
+        <div class="cell" v-for="cell in cells" :key="cell" @click="cellClicked(cell)" @keydown="handleKeyDown" :tabindex="cell" :class="{selected: cell === selectedCellIndex}">
+            <span v-if="options[cell] !== ''" >{{ options[cell] }}</span>
         </div>
     </div>
-    <h2>{{ statusText }}</h2>
-    <button @click="restart">Restart</button>
+    <Timer />
+    <button class="button-game" @click="restart">Restart</button>
   </div>
 </template>
 <script setup lang="ts">
 import { computed, onMounted, ref, reactive } from 'vue'
+import Timer from '../components/Timer.vue'
 
 const winCondition = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8], // horizontal
@@ -23,17 +28,19 @@ const options = ref(['', '', '', '', '', '', '', '', ''])
 const turn = ref('')
 const running = ref(true)
 const currentPlayer = ref('X')
+const selectedCellIndex = ref(0)
 
 onMounted(() => {
   running.value = true
   currentPlayer.value = 'X'
+  selectedCellIndex.value = 4
 })
 
 const statusText = computed(() => {
   if (running.value) {
-    return `It's ${currentPlayer.value}'s turn`
+    return `É a vez de ${currentPlayer.value}`
   } else {
-    return `${turn.value} won!`
+    return `${turn.value} ganhou, parabéns!`
   }
 })
 
@@ -63,21 +70,91 @@ function restart () {
   options.value = ['', '', '', '', '', '', '', '', '']
 }
 
+function handleKeyDown (event: KeyboardEvent) {
+  const keysAbleToUse = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter']
+  if (!keysAbleToUse.includes(event.key)) return
+  if (!running.value) return
+  if (event.key === 'ArrowUp') {
+    if (selectedCellIndex.value - 3 < 0) return
+    selectedCellIndex.value -= 3
+  }
+  if (event.key === 'ArrowDown') {
+    if (selectedCellIndex.value + 3 > 8) return
+    selectedCellIndex.value += 3
+  }
+  if (event.key === 'ArrowLeft') {
+    if (selectedCellIndex.value - 1 < 0) return
+    selectedCellIndex.value -= 1
+  }
+  if (event.key === 'ArrowRight') {
+    if (selectedCellIndex.value + 1 > 8) return
+    selectedCellIndex.value += 1
+  }
+  if (event.key === 'Enter') {
+    cellClicked(selectedCellIndex.value)
+  }
+}
+
 </script>
 
 <style scoped>
-.cell {
-    width: 75px;
-    height: 75px;
-    border: 2px solid #ffffff;
-    box-shadow: 0 0 0 2px;
-    font-size: 50px;
-    cursor: pointer;
+.game-title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    padding: 32px 0 42px;
 }
-#cellContainer {
+.cell-container {
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(3, auto);
     width: 225px;
     margin: auto;
+    margin-top: 24px;
+}
+.cell {
+    width: 92px;
+    height:92px;
+    border-right: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+    font-size: 50px;
+    cursor: pointer;
+}
+.cell:nth-child(3n) {
+    border-right: none;
+}
+.cell:nth-child(n+7) {
+    border-bottom: none;
+}
+.cell:hover,
+.cell:focus {
+  box-shadow: inset 6px 6px 1px  #ffffff, inset -6px -6px 1px  #ffffff;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.selected {
+    box-shadow: inset 6px 6px 1px  #ffffff, inset -6px -6px 1px  #ffffff;
+    transition: box-shadow 0.2s ease-in-out;
+}
+.turn-back{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin: 20px -30px 24px;
+}
+.turn-back img {
+    width: 24px;
+    height: 24px;
+    margin: 0 8px 0 0;
+}
+.turn-back span {
+    margin-left: -5px;
+    color: #ffffff;
+}
+
+.button-game {
+  padding: 20px;
+  background-color: red;
 }
 </style>
