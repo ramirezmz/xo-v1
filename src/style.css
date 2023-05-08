@@ -21,6 +21,12 @@ a {
 h1 {
     margin: 0;
 }
+input {
+    border: none;
+    outline: none;
+    background-color: none;
+    box-shadow: none;
+}
 
 body {
   margin: 0;
@@ -48,4 +54,23 @@ body {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.button-option {
+    width: 300px;
+    height: 67px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    border: 1px solid #6C8E9D;
+    background-color: #252525;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 100;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+.button-option:hover {
+    border:1px solid #D3D089;
+    transition: background-color 0.2s ease-in-out;
 }
