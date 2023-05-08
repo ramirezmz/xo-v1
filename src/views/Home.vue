@@ -5,9 +5,12 @@
             <span>X</span>
         </h1>
         <div class="button-content">
-            <button class="button-option">jogo local</button>
-            <button class="button-option">jogo em tempo real</button>
-            <button class="button-option">convidar amigos</button>
+            <button class="button-option" @click="navigateToGame">jogo local</button>
+            <button class="button-option" @click="navigateToRealTimeGame">jogo em tempo real</button>
+            <button class="button-option" @click="navigateToShareToFriends">convidar amigos</button>
+        </div>
+        <div class="alert-content">
+            <Message v-if="alert" :message="message.title" :kind="message.kind"/>
         </div>
         <div class="accounts-options">
             <button class="link-option">criar uma conta</button>
@@ -17,6 +20,41 @@
     </div>
 </template>
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { reactive, ref } from 'vue'
+import Message from '../components/Message.vue'
+
+const message = reactive({
+  title: '',
+  kind: ''
+})
+const alert = ref(false)
+const router = useRouter()
+const isLogged = ref(false)
+function navigateToGame () {
+  router.push({ name: 'Game' })
+}
+
+function navigateToRealTimeGame () {
+  if (isLogged.value) {
+    router.push({ name: 'RealTimeGame' })
+  } else {
+    message.title = 'Você precisa estar logado para jogar em tempo real'
+    message.kind = 'error'
+    alert.value = true
+  }
+}
+
+function navigateToShareToFriends () {
+  if (isLogged.value) {
+    router.push({ name: 'ShareToFriends' })
+  } else {
+    message.title = 'Você precisa estar logado para convidar amigos'
+    message.kind = 'error'
+    alert.value = true
+  }
+}
+
 </script>
 <style scoped>
 
@@ -66,7 +104,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+}
+
+.alert-content {
+    width: 300px;
+    height: 200px;
 }
 
 .link-option {
@@ -74,7 +116,6 @@
     background-color: transparent;
     color: #ffffff;
     font-size: 1.2rem;
-    font-weight: 100;
     cursor: pointer;
     transition: color 0.2s ease-in-out;
 }
