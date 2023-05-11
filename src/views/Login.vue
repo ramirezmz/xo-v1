@@ -19,7 +19,7 @@
             name="password"
             v-model="password"
         />
-          <button class="button-option">
+          <button class="button-option" @click="xxx">
               entrar
           </button>
       </section>

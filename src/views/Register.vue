@@ -35,7 +35,7 @@
               name="passwordConfirm"
               v-model="passwordConfirm"
           />
-            <button class="button-option">
+            <button class="button-option" @click="xxx">
                 criar minha conta
             </button>
         </section>
@@ -50,6 +50,13 @@ const firstName = ref('')
 const email = ref('')
 const password = ref('')
 const passwordConfirm = ref('')
+
+function xxx () {
+  console.log(firstName.value)
+  console.log(email.value)
+  console.log(password.value)
+  console.log(passwordConfirm.value)
+}
 </script>
 <style>
 </style>
