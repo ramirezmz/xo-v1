@@ -1,36 +1,40 @@
 <template>
-    <div class="register-content">
+    <div>
         <GoBack />
         <h1 class="title">Criar minha conta</h1>
         <section class="form">
-            <div class="input-form">
-                <div class="label-input">
-                    <label for="name">Meu nome</label>
-                <span class="obrigatory">*</span>
-                </div>
-                <input type="text" name="name" placeholder="Digite seu nome" />
-            </div>
-            <div class="input-form">
-                <div class="label-input">
-                    <label for="email">Meu email</label>
-                    <span class="obrigatory">*</span>
-                </div>
-                <input type="email" name="email" placeholder="Digite seu email" />
-            </div>
-            <div class="input-form">
-                <div class="label-input">
-                    <label for="password">Minha senha</label>
-                <span class="obrigatory">*</span>
-                </div>
-                <input type="password" name="password" placeholder="Digite sua senha" />
-            </div>
-            <div class="input-form">
-                <div class="label-input">
-                    <label for="password-confirm">Confirmar minha senha</label>
-                    <span class="obrigatory">*</span>
-                </div>
-                <input type="password" name="password-confirm" placeholder="Digite novamente sua senha" />
-            </div>
+          <Input
+              label="Meu nome"
+              :is-required="true"
+              placeholder="Digite seu nome"
+              kind="input"
+              name="name"
+              v-model="firstName"
+          />
+          <Input
+              label="Meu email"
+              :is-required="true"
+              placeholder="Digite seu email"
+              kind="input"
+              name="email"
+              v-model="email"
+          />
+          <Input
+              label="Minha senha"
+              :is-required="true"
+              placeholder="Digite sua senha"
+              kind="password"
+              name="password"
+              v-model="password"
+          />
+          <Input
+              label="Confirmar minha senha"
+              :is-required="true"
+              placeholder="Digite novamente sua senha"
+              kind="password"
+              name="passwordConfirm"
+              v-model="passwordConfirm"
+          />
             <button class="button-option">
                 criar minha conta
             </button>
@@ -39,22 +43,13 @@
 </template>
 <script setup lang="ts">
 import GoBack from '../components/GoBack.vue'
+import Input from '../components/Input.vue'
+import { ref } from 'vue'
 
+const firstName = ref('')
+const email = ref('')
+const password = ref('')
+const passwordConfirm = ref('')
 </script>
 <style>
-.input-form{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 1.3rem;
-}
-.input-form input {
-    width: 300px;
-    height: 3rem;
-    border-radius: 0.5rem;
-    border: 1px solid #6C8E9D;
-    font-size: 1.2rem;
-    color: #6C8E9D;
-    margin-top: 0.5rem;
-}
 </style>
