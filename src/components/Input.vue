@@ -1,24 +1,29 @@
 <template>
     <div class="input-form">
         <div class="label-input">
-            <label for="name">{{label}}</label>
-            <span v-if="isObrigatory" class="obrigatory">*</span>
+            <label>{{label}}</label>
+            <span v-if="isRequired" class="obrigatory">*</span>
         </div>
-        <input :type="kind" :name="name" :placeholder="placeholder" />
+        <input :type="kind" :name="name" :placeholder="placeholder" v-model="inputValue" @input="updateValue"/>
     </div>
 </template>
 <script setup lang="ts">
-import { defineProps, onMounted } from 'vue'
+import { defineProps, ref, watch, defineEmits } from 'vue'
 
-const props = defineProps<{
-    label: string
-    isObrigatory: boolean
-    placeholder: string
-    kind: string
-    name: string
-}>()
+interface InputProps {
+  label: string
+  isRequired: boolean
+  placeholder: string
+  kind: string
+  name: string
+  modelValue: string
+}
+const emit = defineEmits(['update:modelValue'])
+const props = defineProps<InputProps>()
 
-onMounted(() => {
-  console.log(props)
+const inputValue = ref(props.modelValue)
+
+watch(inputValue, (newValue) => {
+  emit('update:modelValue', newValue)
 })
 </script>
