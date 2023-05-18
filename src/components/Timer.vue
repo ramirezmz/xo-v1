@@ -53,6 +53,9 @@ watch(() => props.start, (value) => {
     startTimer()
   } else {
     stopTimer()
+    if (time.value > 0) {
+      restartTimer()
+    }
   }
 })
 </script>
