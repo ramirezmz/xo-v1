@@ -8,7 +8,10 @@
         </div>
     </div>
     <Timer :start="startTime"/>
-    <button class="button-game" @click="restart">Restart</button>
+    <button @click="restart">Restart</button>
+    <div v-if="showBlurWins" class="win-blur-background" @click="removeBlur">
+        <h1>{{ whoWins }}</h1>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -27,6 +30,7 @@ const turn = ref('')
 const currentPlayer = ref('X')
 const selectedCellIndex = ref(0)
 const startTime = ref(false)
+const showBlurWins = ref(false)
 
 onMounted(() => {
   startTime.value = true
@@ -41,6 +45,18 @@ const statusText = computed(() => {
     return `${turn.value} ganhou, parabéns!`
   }
 })
+const whoWins = computed(() => {
+  if (startTime.value) {
+    return ''
+  } else {
+    return `${turn.value} ganhou, parabéns!`
+  }
+})
+
+function removeBlur () {
+  console.log('removed')
+  showBlurWins.value = false
+}
 
 function cellClicked (value: number) {
   if (options.value[value] !== '' || !startTime.value) return
@@ -57,6 +73,7 @@ function checkWinCondition () {
     const [a, b, c] = winCondition[i]
     if (options.value[a] && options.value[a] === options.value[b] && options.value[a] === options.value[c]) {
       startTime.value = false
+      showBlurWins.value = true
       turn.value = options.value[a]
     }
   }
@@ -109,6 +126,25 @@ watch(statusText, () => {
     font-weight: 400;
     margin: 0;
     padding: 32px 0 42px;
+}
+
+.win-blur-background {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+.win-blur-background h1 {
+    color: #ffffff;
 }
 .paragraph {
     display: block;
