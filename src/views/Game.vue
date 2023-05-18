@@ -20,13 +20,17 @@
             </div>
         </div>
         <Timer :start="startTime" />
-        <button @click="restart">Restart</button>
         <div
-            v-if="showBlurWins"
-            class="win-blur-background"
-            @click="removeBlur"
+        v-if="showBlurWins"
+        class="win-blur-background"
+        @click="removeBlur"
         >
-            <h1>{{ whoWins }}</h1>
+        <h1>{{ whoWins }}</h1>
+        <span>Gostaria de jogar novamente?</span>
+        <div class="win-button-container">
+            <button class="button-option" @click="restart">Sim</button>
+            <button class="button-option" @click="goToPrincipalPage">Não</button>
+        </div>
         </div>
     </div>
 </template>
@@ -34,6 +38,9 @@
 import { computed, onMounted, ref, reactive, watch } from 'vue'
 import Timer from '../components/Timer.vue'
 import GoBack from '../components/GoBack.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const winCondition = [
   [0, 1, 2],
@@ -104,9 +111,14 @@ function checkWinCondition () {
 }
 
 function restart () {
+  showBlurWins.value = false
   startTime.value = true
   currentPlayer.value = 'X'
   options.value = ['', '', '', '', '', '', '', '', '']
+}
+
+function goToPrincipalPage () {
+  router.push('/')
 }
 
 function handleKeyDown (event: KeyboardEvent) {
@@ -161,10 +173,13 @@ watch(statusText, () => {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    position: fixed;
+
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    flex-direction: column;
+
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -174,6 +189,19 @@ watch(statusText, () => {
 }
 .win-blur-background h1 {
     color: #ffffff;
+}
+.win-blur-background span {
+    margin-top: 24px;
+}
+.win-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button-option {
+    width: 120px;
+    height: 60px;
+    margin: 10px 12px;
 }
 .paragraph {
     display: block;

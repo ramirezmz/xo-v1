@@ -42,7 +42,13 @@ function stopTimer () {
   timerInterval.value = null
 }
 
+function restartTimer () {
+  time.value = 0
+  timeString.value = formatTime(time.value)
+}
+
 watch(() => props.start, (value) => {
+  console.log(props.start)
   if (value) {
     startTimer()
   } else {
