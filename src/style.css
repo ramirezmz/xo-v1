@@ -14,9 +14,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --primary-color: #252525;
+  --secondary-color: #ffffff;
+  --first-user-color:#6C8E9D;
+  --second-user-color:#D3D089;
+  --danger-color: #A52A2A;
 }
 a {
   text-decoration: none;
+  color: var(--secondary-color);
 }
 h1 {
     margin: 0;
@@ -31,7 +38,6 @@ input {
 body {
   margin: 0;
   display: flex;
-  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -43,16 +49,32 @@ body {
   text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.light {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+
+  .button-option {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
   }
-  a:hover {
-    color: #747bff;
+  .link-option {
+    color: var(--primary-color);
   }
-  button {
-    background-color: #f9f9f9;
+  .link-option:hover {
+      color: var(--first-user-color);
+  }
+  .cell {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+  }
+  .go-back span {
+    color: var(--primary-color);
+  }
+  .icon {
+    color: var(--primary-color);
+  }
+  .input-form input {
+    background-color: var(--secondary-color);
   }
 }
 
@@ -62,16 +84,16 @@ body {
     margin: 10px 0;
     border: none;
     border-radius: 6px;
-    border: 1px solid #6C8E9D;
-    background-color: #252525;
-    color: #ffffff;
+    border: 1px solid var(--first-user-color);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     font-size: 1.2rem;
     font-weight: 100;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
 .button-option:hover {
-    border:1px solid #D3D089;
+    border:1px solid var(--second-user-color);
     transition: background-color 0.2s ease-in-out;
 }
 
@@ -85,14 +107,19 @@ body {
     width: 300px;
     height: 3rem;
     border-radius: 0.5rem;
-    border: 1px solid #6C8E9D;
+    border: 1px solid var(--first-user-color);
     font-size: 1.2rem;
-    color: #6C8E9D;
+    color: var(--first-user-color);
     margin-top: 0.5rem;
 }
 .obrigatory {
-    color: #AA4747;
+    color: var(--danger-color);
     font-size: 1.2rem;
     margin-left: 0.5rem;
     font-weight: 600;
+}
+.icon {
+    width: 24px;
+    height: 24px;
+    color: var(--secondary-color);
 }

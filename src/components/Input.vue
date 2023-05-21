@@ -4,8 +4,8 @@
             <label>{{label}}</label>
             <span v-if="isRequired" class="obrigatory">*</span>
         </div>
-        <EyeIcon v-if="isPassword && isEyeVisible" class="button-eye" @click="showPasswordEye"/>
-        <EyeOffIcon v-if="isPassword && !isEyeVisible" class="button-eye" @click="showPasswordEye"/>
+        <EyeIcon v-if="isPassword && !isEyeVisible" class="icon button-eye" @click="showPasswordEye"/>
+        <EyeOffIcon v-if="isPassword && isEyeVisible" class="icon button-eye" @click="showPasswordEye"/>
         <input :type="inputType" :name="name" :placeholder="placeholder" v-model="inputValue"/>
     </div>
 </template>
@@ -46,7 +46,5 @@ watch(inputValue, (newValue) => {
     transform: translateY(-50%);
     left: 85%;
     cursor: pointer;
-    width: 24px;
-    height: 24px;
 }
 </style>

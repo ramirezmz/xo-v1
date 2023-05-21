@@ -1,5 +1,6 @@
 <template>
     <div class="home-page-content">
+        <DarkModeSwitch />
         <h1 class="title-home-page">
             <span>O</span>
             <span>X</span>
@@ -23,6 +24,7 @@
 import { useRouter } from 'vue-router'
 import { reactive, ref } from 'vue'
 import Message from '../components/Message.vue'
+import DarkModeSwitch from '../components/DarkModeSwitch.vue'
 
 const message = reactive({
   title: '',
