@@ -26,7 +26,6 @@ function handleDarkMode () {
 
 </script>
 <style scoped>
-.dark-mode-switch-content {}
 .label-swich-dark-mode {
   background-color: #111;
   border-radius: 50px;
