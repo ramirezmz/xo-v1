@@ -10,11 +10,11 @@ Also, I created the [figma prototype](https://www.figma.com/file/b3V7mshjbmQ1zAS
 
 # Tasks
 
-- [x] Create the game board.
-- [x] Create the game logic.
-- [ ] Add gesture recognition.
-- [ ] Game modes:
-  - [ ] Add user vs machine mode.
-  - [ ] Add online mode (user vs user).
-- [ ] Add congratulations keyframe.
-- [ ] Add victory music.
+-   [x] Create the game board.
+-   [x] Create the game logic.
+-   [ ] Add gesture recognition.
+-   [ ] Game modes:
+    -   [ ] Add user vs machine mode.
+    -   [ ] Add online mode (user vs user).
+-   [x] Add congratulations keyframe.
+-   [ ] Add victory music.
